@@ -15,7 +15,7 @@
  *          - cygwin
  */
 
-name = 'indy-plenum'
+name = 'indy-anoncreds'
 
 
 def config = [
