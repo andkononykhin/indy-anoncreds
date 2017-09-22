@@ -128,7 +128,7 @@ def staticCodeValidation() {
 
 def tests = [
     anoncreds: { python ->
-        test([resFile: "test-result-anoncreds.${NODE_NAME}.xml", python: python])
+        test(resFile: "test-result-anoncreds.${NODE_NAME}.xml", python: python)
     }
 ].collect {k, v -> [k, v]}
 
