@@ -39,7 +39,11 @@ def buildDocker(imageName, dockerfile) {
 }
 
 
-def install(options=[pip: 'pip', isVEnv: false, deps: []]) {
+def install(options) {
+   options.pip = options.get('pip', 'pip')
+   options.isVEnv = options.get('isVEnv', false)
+   options.deps = options.get('deps', [])
+
    for (def dep : options.deps) {
         sh "$options.pip install " + (options.isVEnv ? "-U" : "") + " $dep"
     }
@@ -54,10 +58,14 @@ def withTestEnv(body) {
     checkout scm
 
     if (isUnix()) {
+        // TODO refactor
+        sh "cp setup-charm.sh ci/setup-charm.sh"
+        sh "sed -ir s/sudo// ci/setup-charm.sh"
+
         echo 'Test: Build docker image'
         buildDocker("$name-test", "ci/ubuntu.dockerfile ci").inside {
             echo 'Test: Install dependencies'
-            install(pip: 'pip', deps: ['pytest-asyncio'])
+            install(deps: ['pytest-asyncio'])
             body.call('python')
         }
     } else { // windows expected
@@ -72,12 +80,12 @@ def withTestEnv(body) {
 }
 
 
-def test(options=[
-        resFile: 'test-result.txt',
-        testDir: '.',
-        python: 'python',
-        useRunner: false,
-        testOnlySlice: '1/1']) {
+def test(options) {
+   options.resFile = options.get('resFile', 'test-result.txt')
+   options.testDir = options.get('testDir', '.')
+   options.python = options.get('python', 'python')
+   options.useRunner = options.get('useRunner', false)
+   options.testOnlySlice = options.get('testOnlySlice', '1/1')
 
     try {
         if (options.useRunner) {
@@ -120,7 +128,7 @@ def staticCodeValidation() {
 
 def tests = [
     anoncreds: { python ->
-        test([testDir: '.', resFile: "test-result-anoncreds.${NODE_NAME}.xml", python: python])
+        test([resFile: "test-result-anoncreds.${NODE_NAME}.xml", python: python])
     }
 ].collect {k, v -> [k, v]}
 
