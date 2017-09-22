@@ -40,9 +40,9 @@ def buildDocker(imageName, dockerfile) {
 
 
 def install(options) {
-   options.pip = options.get('pip', 'pip')
-   options.isVEnv = options.get('isVEnv', false)
-   options.deps = options.get('deps', [])
+   options.pip = options.pip ?: 'pip'
+   options.isVEnv = options.isVEnv ?: false
+   options.deps = options.deps ?: []
 
    for (def dep : options.deps) {
         sh "$options.pip install " + (options.isVEnv ? "-U" : "") + " $dep"
@@ -81,11 +81,11 @@ def withTestEnv(body) {
 
 
 def test(options) {
-   options.resFile = options.get('resFile', 'test-result.txt')
-   options.testDir = options.get('testDir', '.')
-   options.python = options.get('python', 'python')
-   options.useRunner = options.get('useRunner', false)
-   options.testOnlySlice = options.get('testOnlySlice', '1/1')
+    options.resFile = options.resFile ?: 'test-result.txt'
+    options.testDir = options.testDir ?: '.'
+    options.python = options.python ?: 'python'
+    options.useRunner = options.useRunner ?: false
+    options.testOnlySlice = options.testOnlySlice ?: '1/1'
 
     try {
         if (options.useRunner) {
