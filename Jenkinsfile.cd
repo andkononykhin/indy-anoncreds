@@ -63,4 +63,9 @@ def buildDebUbuntu = { repoName, releaseVersion, sourcePath ->
 }
 
 def options = new TestAndPublishOptions()
+options.publishDeps()
+options.setPublishableBranches(env.BRANCH_NAME)
+options.setPostfixes([master: env.BRANCH_NAME])
+env.SOVRIN_CORE_REPO_NAME = 'test'
+options.enable([StagesEnum.PACK_RELEASE_DEPS, StagesEnum.PACK_RELEASE_ST_DEPS])
 testAndPublish(name, [ubuntu: [anoncreds: testUbuntu], windows: [anoncreds: testWindowsNoDocker], windowsNoDocker: [anoncreds: testWindowsNoDocker]], true, options, [ubuntu: buildDebUbuntu])
