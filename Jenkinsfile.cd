@@ -62,10 +62,11 @@ def buildDebUbuntu = { repoName, releaseVersion, sourcePath ->
     return "$volumeName"
 }
 
+env.BRANCH_NAME = 'stable'
 def options = new TestAndPublishOptions()
-options.publishDeps()
 options.setPublishableBranches(env.BRANCH_NAME)
-options.setPostfixes([master: env.BRANCH_NAME])
+options.setPostfixes([stable: env.BRANCH_NAME])
 env.SOVRIN_CORE_REPO_NAME = 'test'
-options.enable([StagesEnum.PACK_RELEASE_DEPS, StagesEnum.PACK_RELEASE_ST_DEPS])
+options.enable([StagesEnum.PACK_RELEASE_COPY, StagesEnum.PACK_RELEASE_COPY_ST])
+options.setCopyWithDeps(false)
 testAndPublish(name, [ubuntu: [anoncreds: testUbuntu], windows: [anoncreds: testWindowsNoDocker], windowsNoDocker: [anoncreds: testWindowsNoDocker]], true, options, [ubuntu: buildDebUbuntu])
