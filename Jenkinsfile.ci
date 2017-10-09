@@ -26,7 +26,7 @@ def config = [
 ]
 
 
-env.INDY_AGENT_LINUX_LABEL = env.INDY_AGENT_LINUX_LABEL || 'linux'
+env.INDY_AGENT_LINUX_LABEL = env.INDY_AGENT_LINUX_LABEL ? env.INDY_AGENT_LINUX_LABEL : 'linux'
 def labels = [env.INDY_AGENT_LINUX_LABEL] // TODO enable windows
 
 if (env.INDY_AGENT_WINDOWS_LABEL) {
