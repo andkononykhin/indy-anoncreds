@@ -19,8 +19,8 @@ name = 'indy-anoncreds'
 
 
 def config = [
-    codeValidation: true,
-    runTests: true,
+    codeValidation: false,
+    runTests: false,
     failFast: false,
     sendNotif: false
 ]
