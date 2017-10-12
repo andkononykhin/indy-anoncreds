@@ -19,12 +19,14 @@ name = 'indy-anoncreds'
 
 
 def config = [
-    codeValidation: false,
+    codeValidation: true,
     runTests: false,
     failFast: false,
     sendNotif: false
 ]
 
+
+echo "$env.INDY_AGENT_LINUX_LABEL"
 
 def labels = [env.INDY_AGENT_LINUX_LABEL ?: 'linux'] // TODO enable windows
 
