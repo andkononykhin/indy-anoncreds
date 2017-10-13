@@ -18,6 +18,8 @@
 name = 'indy-anoncreds'
 
 
+echo "100 Test"
+
 def config = [
     codeValidation: true,
     runTests: false,
