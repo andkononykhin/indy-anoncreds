@@ -22,8 +22,8 @@ echo "100 Test6"
 
 def config = [
     codeValidation: true,
-    runTests: false,
-    failFast: false,
+    runTests: true,
+    failFast: true,
     sendNotif: false
 ]
 
@@ -166,9 +166,6 @@ for (i = 0; i < labels.size(); i++) {
 
 // PIPELINE
 
-timeout(1) {
-    sleep 61
-
 try {
     stage('Static code validation') {
         if (config.codeValidation) {
@@ -198,5 +195,4 @@ try {
             emailext emailMessage
         }
     }
-}
 }
