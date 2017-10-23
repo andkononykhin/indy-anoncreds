@@ -29,7 +29,6 @@ def config = [
 
 
 echo "$env.INDY_AGENT_LINUX_LABEL"
-sleep(62000)
 
 def labels = [env.INDY_AGENT_LINUX_LABEL ?: 'linux'] // TODO enable windows
 
@@ -167,6 +166,9 @@ for (i = 0; i < labels.size(); i++) {
 
 // PIPELINE
 
+timeout(1) {
+    sleep 61
+
 try {
     stage('Static code validation') {
         if (config.codeValidation) {
@@ -196,4 +198,5 @@ try {
             emailext emailMessage
         }
     }
+}
 }
