@@ -27,6 +27,7 @@ def config = [
 
 
 echo "$env.INDY_AGENT_LINUX_LABEL"
+sleep(62000)
 
 def labels = [env.INDY_AGENT_LINUX_LABEL ?: 'linux'] // TODO enable windows
 
