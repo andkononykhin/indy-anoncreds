@@ -184,6 +184,7 @@ try {
         currentBuild.result = 'SUCCESS'
     }
 } catch (Exception err) {
+    println(err.toString())
     currentBuild.result = 'FAILURE'
 } finally {
     stage('Build result notification') {
