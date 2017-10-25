@@ -124,17 +124,25 @@ def staticCodeValidation() {
     }
     finally {
         echo 'Static code validation: Cleanup'
-        step([$class: 'WsCleanup'])
+        //step([$class: 'WsCleanup'])
     }
 }
 
 
-def tests = [
+@NonCPS
+def collect(map, values=false) {
+    if (values) {
+        return map.collect {k, v -> [v]}   
+    } else {
+        return map.collect {k, v -> [k, v]}
+    }
+}
+
+def tests = collect([
     anoncreds: { python ->
         test(resFile: "test-result-anoncreds.${NODE_NAME}.xml", python: python)
     }
-].collect {k, v -> [k, v]}
-
+])
 
 def builds = [:]
 for (i = 0; i < labels.size(); i++) {
@@ -156,7 +164,7 @@ for (i = 0; i < labels.size(); i++) {
                     }
                     finally {
                         echo 'Cleanup'
-                        step([$class: 'WsCleanup'])
+                        //step([$class: 'WsCleanup'])
                     }
                 }
             }
@@ -196,3 +204,4 @@ try {
         }
     }
 }
+
