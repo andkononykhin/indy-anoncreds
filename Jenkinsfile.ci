@@ -25,6 +25,7 @@ def config = [
     sendNotif: true
 ]
 
+
 // TODO enable windows
 def labels = [
     linux: env.INDY_AGENT_LINUX_DOCKER_LABEL ?: 'linux'
