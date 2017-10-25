@@ -167,7 +167,7 @@ for (i = 0; i < _labels.size(); i++) {
 // PIPELINE
 
 try {
-    timeout(1) {
+    timeout(20) {
         stage('Static code validation') {
             if (config.codeValidation) {
                 node(labels.linux) {
