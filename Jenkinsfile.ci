@@ -21,8 +21,8 @@ name = 'indy-anoncreds'
 echo "100 Test6"
 
 def config = [
-    codeValidation: true,
-    runTests: true,
+    codeValidation: false,
+    runTests: false,
     failFast: true,
     sendNotif: false
 ]
