@@ -27,6 +27,7 @@ def config = [
     sendNotif: false
 ]
 
+
 echo "$env.INDY_AGENT_LINUX_DOCKER_LABEL"
 
 def labels = [env.INDY_AGENT_LINUX_DOCKER_LABEL ?: 'linux'] // TODO enable windows
